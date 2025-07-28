@@ -112,9 +112,10 @@ function Signup() {
   };
   return (
     <div>
-      {/**Desktop */}
-      <div className="hidden w-screen h-screen md:flex flex-col md:flex-row">
-        <div className="flex-1/3 md:flex md:flex-col md:p-[32px]">
+      {/* Desktop */}
+      <div className="hidden w-screen h-screen md:flex md:flex-row overflow-hidden">
+        <div className="flex-1/3 flex flex-col md:p-[32px] overflow-y-auto max-h-screen">
+          {/* Header */}
           <div className="w-full h-[32px] flex items-center justify-start gap-[10px]">
             <svg
               width="32"
@@ -123,49 +124,29 @@ function Signup() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M20.1424 0.843087L16.9853 0L14.3248 9.89565L11.9228 0.961791L8.76555 1.80488L11.3608 11.4573L4.8967 5.01518L2.58549 7.31854L9.67576 14.3848L0.845959 12.0269L0 15.1733L9.64767 17.7496C9.53721 17.2748 9.47877 16.7801 9.47877 16.2717C9.47877 12.6737 12.4055 9.75685 16.0159 9.75685C19.6262 9.75685 22.5529 12.6737 22.5529 16.2717C22.5529 16.7768 22.4952 17.2685 22.3861 17.7405L31.1541 20.0818L32 16.9354L22.314 14.3489L31.1444 11.9908L30.2984 8.84437L20.6128 11.4308L27.0768 4.98873L24.7656 2.68538L17.7737 9.65357L20.1424 0.843087Z"
-                fill="#367AFF"
-              />
-              <path
-                d="M22.3776 17.7771C22.1069 18.9176 21.5354 19.9421 20.7513 20.763L27.1033 27.0935L29.4145 24.7901L22.3776 17.7771Z"
-                fill="#367AFF"
-              />
-              <path
-                d="M20.6871 20.8292C19.8936 21.637 18.8907 22.2398 17.7661 22.5504L20.0775 31.1472L23.2346 30.3041L20.6871 20.8292Z"
-                fill="#367AFF"
-              />
-              <path
-                d="M17.6481 22.5819C17.1264 22.7156 16.5795 22.7866 16.0159 22.7866C15.4121 22.7866 14.8273 22.705 14.2723 22.5523L11.9588 31.1569L15.1159 32L17.6481 22.5819Z"
-                fill="#367AFF"
-              />
-              <path
-                d="M14.1607 22.5205C13.0533 22.1945 12.0683 21.584 11.2909 20.7739L4.92328 27.1199L7.23448 29.4233L14.1607 22.5205Z"
-                fill="#367AFF"
-              />
-              <path
-                d="M11.2378 20.7178C10.4737 19.9026 9.91721 18.8917 9.65231 17.7688L0.855743 20.1179L1.7017 23.2643L11.2378 20.7178Z"
-                fill="#367AFF"
-              />
+              <path d="M20.1424 0.843087L16.9853..." fill="#367AFF" />
             </svg>
-            <h1 className="font-semibold text-[24px]">HD</h1>
+            <h1 className="font-semibold text-2xl">HD</h1>
           </div>
-          <div className="flex flex-col md:px-[32px] h-full justify-center gap-[32px]">
-            <div className="w-full h-[83px] flex flex-col gap-[12px]">
+
+          {/* Form */}
+          <div className="flex flex-col px-4 md:px-[32px] py-8 justify-center gap-[32px] w-full max-w-[450px] mx-auto flex-grow">
+            <div className="h-fit flex flex-col gap-[12px]">
               <h1 className="font-bold text-[40px] text-[#232323]">Sign up</h1>
-              <p className="text-[18px] text-[#969696]">
+              <p className="text-lg text-[#969696]">
                 Sign up to enjoy the feature of HD
               </p>
             </div>
+
             <form
               onSubmit={handleFormSubmit}
-              className="flex flex-col gap-[20px] md:mt-7 lg:mt-0"
+              className="flex flex-col gap-[20px]"
             >
-              {/* Name Field */}
-              <div className="w-[399px] md:w-full relative">
+              {/* Name */}
+              <div className="w-full relative">
                 <label
                   htmlFor="name"
-                  className={`bg-[#FFFFFF] px-[4px] font-medium text-[14px] absolute -top-3 left-3 ${
+                  className={`bg-white px-[4px] font-medium text-[14px] absolute -top-3 left-3 ${
                     focused === "name" ? "text-[#367AFF]" : "text-[#9A9A9A]"
                   }`}
                 >
@@ -179,16 +160,16 @@ function Signup() {
                   required
                   onFocus={() => setFocused("name")}
                   onBlur={() => setFocused(null)}
-                  className="w-full rounded-[10px] border-[1.5px] p-[16px] flex gap-[2px] text-[18px] text-[#232323] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none"
+                  className="w-full rounded-[10px] border-[1.5px] p-[16px] text-[18px] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none"
                   placeholder="Jonas Khanwald"
                 />
               </div>
 
-              {/* DOB Field */}
-              <div className="w-[399px] md:w-full relative">
+              {/* DOB */}
+              <div className="w-full relative">
                 <label
                   htmlFor="dob"
-                  className={`bg-[#FFFFFF] px-[4px] font-medium text-[14px] absolute -top-3 left-3 ${
+                  className={`bg-white px-[4px] font-medium text-[14px] absolute -top-3 left-3 ${
                     focused === "dob" ? "text-[#367AFF]" : "text-[#9A9A9A]"
                   }`}
                 >
@@ -202,15 +183,15 @@ function Signup() {
                   required
                   onFocus={() => setFocused("dob")}
                   onBlur={() => setFocused(null)}
-                  className="w-full rounded-[10px] border-[1.5px] p-[16px] flex gap-[2px] text-[18px] text-[#232323] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none"
+                  className="w-full rounded-[10px] border-[1.5px] p-[16px] text-[18px] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none"
                 />
               </div>
 
-              {/* Email Field */}
-              <div className="w-[399px] md:w-full relative">
+              {/* Email */}
+              <div className="w-full relative">
                 <label
                   htmlFor="email"
-                  className={`bg-[#FFFFFF] px-[4px] font-medium text-[14px] absolute -top-3 left-3 ${
+                  className={`bg-white px-[4px] font-medium text-[14px] absolute -top-3 left-3 ${
                     focused === "email" ? "text-[#367AFF]" : "text-[#9A9A9A]"
                   }`}
                 >
@@ -224,24 +205,24 @@ function Signup() {
                   required
                   onFocus={() => setFocused("email")}
                   onBlur={() => setFocused(null)}
-                  className="w-full rounded-[10px] border-[1.5px] p-[16px] flex gap-[2px] text-[18px] text-[#232323] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none"
                   placeholder="jonas_kahnwald@gmail.com"
+                  className="w-full rounded-[10px] border-[1.5px] p-[16px] text-[18px] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none"
                 />
               </div>
 
-              {/*OTP Field */}
+              {/* OTP */}
               {otpSent && (
-                <div className="w-[399px] md:w-full relative">
+                <div className="w-full relative">
                   <input
                     value={formData.otp}
                     onChange={handleChange}
                     name="otp"
-                    type={`${viewOtp ? "text" : "password"}`}
+                    type={viewOtp ? "text" : "password"}
                     required
                     onFocus={() => setFocused("otp")}
                     onBlur={() => setFocused(null)}
-                    className="relative w-full rounded-[10px] border-[1.5px] p-[16px] flex gap-[2px] text-[18px] text-[#232323] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none md:pr-12 lg:pr-5"
                     placeholder="OTP"
+                    className="w-full rounded-[10px] border-[1.5px] p-[16px] text-[18px] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none pr-12"
                   />
                   <div
                     className="absolute right-4 top-1/3 z-20"
@@ -255,9 +236,10 @@ function Signup() {
                   </div>
                 </div>
               )}
+
               <button
                 type="submit"
-                className="bg-[#367AFF] text-[#FFFFFF] text-[18px] font-semibold py-[16px] px-[8px] rounded-[10px] cursor-pointer hover:bg-[#3679ffcf]"
+                className="bg-[#367AFF] text-white rounded-[10px] py-4 font-semibold hover:bg-[#3679ffcf]"
               >
                 {otpSent ? "Sign up" : "Get OTP"}
               </button>
@@ -267,11 +249,12 @@ function Signup() {
               onSuccess={handleGoogleLogin}
               onError={() => console.log("Login failed")}
             />
-            <div className="w-[399px] md:w-full h-[27px] flex text-[18px] justify-center items-center">
+
+            <div className="text-center text-[18px]">
               <p className="text-[#6C6C6C]">
-                Already have an account??{" "}
+                Already have an account?{" "}
                 <span
-                  className="font-semibold underline text-[#367AFF] cursor-pointer"
+                  className="underline font-semibold text-[#367AFF] cursor-pointer"
                   onClick={() => navigate("/signin")}
                 >
                   Sign in
@@ -280,10 +263,11 @@ function Signup() {
             </div>
           </div>
         </div>
-        <div className="flex-2/3 hidden md:flex p-[12px]">
+
+        <div className="flex-2/3 hidden md:flex p-[12px] h-full">
           <img
             src="/login-bg.jpg"
-            alt="BG Image Here"
+            alt="BG Image"
             className="rounded-[24px] object-cover w-full h-full"
           />
         </div>

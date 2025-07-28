@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { GoogleLogin } from "@react-oauth/google";
 import { loginWithGoogle, sendOtp, verifyOtp } from "../services/api";
 import { setToken } from "../utils/auth";
+
 function Login() {
   const [focused, setFocused] = useState<"email" | "otp" | null>(null);
   const [formData, setFormData] = useState({ email: "", otp: "" });
@@ -19,9 +20,8 @@ function Login() {
 
   const getOTP = async () => {
     try {
-      const res = await sendOtp(formData.email);
+      await sendOtp(formData.email);
       toast.success("OTP sent successfully");
-      console.log(res.data.message);
       setOtpSent(true);
     } catch (error) {
       toast.error("OTP not sent");
@@ -67,9 +67,9 @@ function Login() {
 
   return (
     <div>
-      {/**Desktop */}
-      <div className="hidden w-screen h-screen md:flex flex-col md:flex-row">
-        <div className="flex-1/3 md:flex md:flex-col md:p-[32px]">
+      {/* Desktop */}
+      <div className="hidden w-screen h-screen md:flex md:flex-row overflow-hidden">
+        <div className="flex-1/3 flex flex-col md:p-[32px] overflow-y-auto max-h-screen">
           <div className="w-full h-[32px] flex items-center justify-start gap-[10px]">
             <svg
               width="32"
@@ -103,24 +103,25 @@ function Login() {
                 fill="#367AFF"
               />
             </svg>
-            <h1 className="font-semibold text-[24px]">HD</h1>
+            <h1 className="font-semibold text-2xl">HD</h1>
           </div>
-          <div className="flex flex-col md:px-[32px] h-full justify-center gap-[32px]">
-            <div className="w-full h-[83px] flex flex-col gap-[12px]">
+
+          <div className="flex flex-col px-4 md:px-[32px] justify-center gap-[32px] w-full max-w-[450px] mx-auto flex-grow py-8">
+            <div className="h-fit flex flex-col gap-[12px]">
               <h1 className="font-bold text-[40px] text-[#232323]">Sign In</h1>
-              <p className="text-[18px] text-[#969696]">
+              <p className="text-lg text-[#969696]">
                 Please login to continue to your account
               </p>
             </div>
             <form
               onSubmit={handleFormSubmit}
-              className="flex flex-col gap-[20px] md:mt-14 lg:mt-0"
+              className="flex flex-col gap-[20px]"
             >
               {/* Email Field */}
-              <div className="w-[399px] md:w-full relative">
+              <div className="w-full relative">
                 <label
                   htmlFor="email"
-                  className={`bg-[#FFFFFF] px-[4px] font-medium text-[14px] absolute -top-3 left-3 ${
+                  className={`bg-white px-[4px] font-medium text-[14px] absolute -top-3 left-3 ${
                     focused === "email" ? "text-[#367AFF]" : "text-[#9A9A9A]"
                   }`}
                 >
@@ -134,27 +135,26 @@ function Login() {
                   required
                   onFocus={() => setFocused("email")}
                   onBlur={() => setFocused(null)}
-                  className="w-full rounded-[10px] border-[1.5px] p-[16px] flex gap-[2px] text-[18px] text-[#232323] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none"
+                  className="w-full rounded-[10px] border-[1.5px] p-[16px] text-[18px] text-[#232323] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none"
                   placeholder="jonas_kahnwald@gmail.com"
                 />
               </div>
 
-              {/*OTP Field */}
-
-              <div className="w-[399px] md:w-full relative">
+              {/* OTP Field */}
+              <div className="w-full relative">
                 <input
                   value={formData.otp}
                   onChange={handleChange}
                   name="otp"
-                  type={`${viewOtp ? "text" : "password"}`}
+                  type={viewOtp ? "text" : "password"}
                   required
                   onFocus={() => setFocused("otp")}
                   onBlur={() => setFocused(null)}
-                  className="relative w-full rounded-[10px] border-[1.5px] p-[16px] flex gap-[2px] text-[18px] text-[#232323] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none md:pr-12 lg:pr-5"
+                  className="relative w-full rounded-[10px] border-[1.5px] p-[16px] text-[18px] text-[#232323] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none pr-12"
                   placeholder="OTP"
                 />
                 <div
-                  className="absolute right-4 top-1/3 z-20"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
                   onClick={() => setViewOtp(!viewOtp)}
                 >
                   {viewOtp ? (
@@ -178,7 +178,6 @@ function Login() {
               <div className="flex items-center gap-[10px]">
                 <input
                   type="checkbox"
-                  name="login"
                   id="login"
                   className="w-[24px] h-[24px]"
                   onChange={() => setCheckBox(!checkBox)}
@@ -190,16 +189,16 @@ function Login() {
 
               <button
                 type="submit"
-                className="bg-[#367AFF] text-[#FFFFFF] text-[18px] font-semibold py-[16px] px-[8px] rounded-[10px] cursor-pointer hover:bg-[#3679ffcf]"
+                className="bg-[#367AFF] text-white text-[18px] font-semibold py-[16px] px-[8px] rounded-[10px] cursor-pointer hover:bg-[#3679ffcf]"
               >
-                Sign in
+                Sign In
               </button>
             </form>
             <GoogleLogin
               onSuccess={handleGoogleLogin}
               onError={() => console.log("Login failed")}
             />
-            <div className="w-[399px] md:w-full h-[27px] flex text-[18px] justify-center items-center">
+            <div className="h-[27px] flex justify-center items-center text-[18px]">
               <p className="text-[#6C6C6C]">
                 Need an account{" "}
                 <span
@@ -212,18 +211,21 @@ function Login() {
             </div>
           </div>
         </div>
-        <div className="flex-2/3 hidden md:flex p-[12px] h-fit">
+
+        {/* Desktop Image */}
+        <div className="flex-2/3 hidden md:flex p-[12px] h-full max-h-screen overflow-hidden">
           <img
             src="/login-bg.jpg"
             alt="BG Image Here"
-            className="rounded-[24px] object-cover w-full h-fit"
+            className="rounded-[24px] object-cover w-full h-full"
           />
         </div>
       </div>
 
-      {/**Mobile */}
-      <div className="w-full h-screen flex flex-col items-center px-4 md:hidden">
-        <div className="w-full max-w-[375px] flex flex-col gap-6">
+      {/* Mobile */}
+      <div className="w-full h-screen flex flex-col items-center px-4 md:hidden overflow-y-auto">
+        <div className="w-full max-w-[375px] flex flex-col gap-6 py-6">
+          {/* Brand */}
           <div className="flex items-center justify-center gap-[12px] mt-[55px]">
             <svg
               width="32"
@@ -260,6 +262,7 @@ function Login() {
             <h1 className="text-[24px] font-semibold text-[#232323]">HD</h1>
           </div>
 
+          {/* Header */}
           <div className="text-center">
             <h1 className="text-[32px] font-bold text-[#232323]">Sign In</h1>
             <p className="text-[#969696] text-[16px]">
@@ -267,6 +270,7 @@ function Login() {
             </p>
           </div>
 
+          {/* Form */}
           <form
             className="flex flex-col gap-[25px] mt-[20px]"
             onSubmit={handleFormSubmit}
@@ -276,7 +280,7 @@ function Login() {
                 htmlFor="email"
                 className={`absolute -top-2 left-3 bg-white px-1 text-sm ${
                   focused === "email" ? "text-[#367AFF]" : "text-[#9A9A9A]"
-                } `}
+                }`}
               >
                 Email
               </label>
@@ -292,6 +296,7 @@ function Login() {
                 className="w-full border rounded-xl p-4 text-[18px] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none"
               />
             </div>
+
             <div className="relative">
               <input
                 value={formData.otp}
@@ -300,12 +305,12 @@ function Login() {
                 onBlur={() => setFocused(null)}
                 name="otp"
                 required
-                type={`${viewOtp ? "text" : "password"}`}
+                type={viewOtp ? "text" : "password"}
                 placeholder="OTP"
-                className="relative w-full border rounded-xl p-4 text-[18px] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none pr-13"
+                className="w-full border rounded-xl p-4 text-[18px] border-[#D9D9D9] focus:border-[#367AFF] focus:outline-none pr-12"
               />
               <div
-                className="absolute right-4 top-1/3 z-20"
+                className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
                 onClick={() => setViewOtp(!viewOtp)}
               >
                 {viewOtp ? (
@@ -316,20 +321,17 @@ function Login() {
               </div>
             </div>
 
-            <div>
-              <button
-                type="button"
-                className="text-[#367AFF] underline font-medium text-sm"
-                onClick={() => getOTP()}
-              >
-                {otpSent ? "Resend OTP" : "Send OTP"}
-              </button>
-            </div>
+            <button
+              type="button"
+              className="text-[#367AFF] underline font-medium text-sm"
+              onClick={getOTP}
+            >
+              {otpSent ? "Resend OTP" : "Send OTP"}
+            </button>
 
             <div className="flex items-center gap-2.5">
               <input
                 type="checkbox"
-                name="login"
                 id="login"
                 className="w-6 h-6"
                 onChange={() => setCheckBox(!checkBox)}
@@ -344,13 +346,14 @@ function Login() {
               Sign In
             </button>
           </form>
+
           <GoogleLogin
             onSuccess={handleGoogleLogin}
             onError={() => console.log("Login failed")}
           />
 
           <p className="text-center text-[#6C6C6C] text-[14px]">
-            Need an account??{" "}
+            Need an account?{" "}
             <span
               className="font-semibold text-[#367AFF] underline cursor-pointer"
               onClick={() => navigate("/signup")}

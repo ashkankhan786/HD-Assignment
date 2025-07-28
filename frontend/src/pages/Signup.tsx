@@ -37,11 +37,8 @@ function Signup() {
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("OTP sent?", otpSent);
-    console.log("Form data", formData);
 
     if (otpSent) {
-      console.log("Form data", formData);
       try {
         const res = await axios.post(
           `${import.meta.env.VITE_SERVER_URL}/api/auth/verify-otp`,
@@ -56,6 +53,7 @@ function Signup() {
           toast.success(
             "OTP verified successfully. Redirecting to the dashboard"
           );
+          navigate("/");
           setFormData({
             name: "",
             email: "",
@@ -78,9 +76,10 @@ function Signup() {
             email: formData.email,
           }
         );
-        toast.success("OTP sent successfully");
-        console.log(res.data.message);
-        setOtpSent(true);
+        if (res) {
+          toast.success("OTP sent successfully");
+          setOtpSent(true);
+        }
       } catch (error) {
         toast.error("OTP not sent");
         console.log("Error while getting OTP", error);

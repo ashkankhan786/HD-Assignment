@@ -177,8 +177,8 @@ function Login() {
 
               <div className="flex items-center gap-[10px]">
                 <input
+                  name="login"
                   type="checkbox"
-                  id="login"
                   className="w-[24px] h-[24px]"
                   onChange={() => setCheckBox(!checkBox)}
                 />
@@ -332,7 +332,7 @@ function Login() {
             <div className="flex items-center gap-2.5">
               <input
                 type="checkbox"
-                id="login"
+                name="login"
                 className="w-6 h-6"
                 onChange={() => setCheckBox(!checkBox)}
               />
